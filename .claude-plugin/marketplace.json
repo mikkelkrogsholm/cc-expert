@@ -1,0 +1,24 @@
+{
+  "name": "cc-expert",
+  "owner": {
+    "name": "Mikkel Freltoft Krogsholm"
+  },
+  "metadata": {
+    "description": "Claude Code expert plugin with skills that research live documentation before providing advice"
+  },
+  "plugins": [
+    {
+      "name": "cc-expert",
+      "source": ".",
+      "description": "Claude Code expert plugin that thoroughly researches official documentation and changelog before providing comprehensive advice. Includes two skills: cc-explorer for brainstorming and project planning, cc-solver for targeted problem-solving.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Mikkel Freltoft Krogsholm"
+      },
+      "homepage": "https://github.com/mikkelkrogsholm/cc-expert",
+      "repository": "https://github.com/mikkelkrogsholm/cc-expert",
+      "license": "MIT",
+      "keywords": ["claude-code", "documentation", "research", "expert", "helper"]
+    }
+  ]
+}

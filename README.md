@@ -53,21 +53,76 @@ For when you want to explicitly trigger comprehensive research on a topic.
 
 ## Installation
 
-### Option 1: Install from GitHub
+### Option 1: Install from GitHub (Recommended)
+
+Add the marketplace and install the plugin in one go:
 
 ```bash
-# Test with the plugin directly from the repo
-claude --plugin-dir /path/to/cc-expert
+# Add the marketplace (run inside Claude Code)
+/plugin marketplace add mikkelkrogsholm/cc-expert
+
+# Install the plugin
+/plugin install cc-expert@cc-expert
 ```
 
-### Option 2: Clone and Use
+Or using the CLI outside of Claude Code:
+
+```bash
+claude plugin marketplace add mikkelkrogsholm/cc-expert
+claude plugin install cc-expert@cc-expert
+```
+
+### Option 2: Add to Your Project's Settings
+
+Add cc-expert to your project so team members automatically get prompted to install it.
+
+Add to `.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "cc-expert": {
+      "source": {
+        "source": "github",
+        "repo": "mikkelkrogsholm/cc-expert"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "cc-expert@cc-expert": true
+  }
+}
+```
+
+### Option 3: Local Development
+
+For testing or contributing:
 
 ```bash
 # Clone the repository
 git clone git@github.com:mikkelkrogsholm/cc-expert.git
 
-# Test locally
+# Test locally with --plugin-dir
 claude --plugin-dir ./cc-expert
+```
+
+### Manage the Plugin
+
+```bash
+# View installed plugins
+/plugin
+
+# Disable without uninstalling
+/plugin disable cc-expert@cc-expert
+
+# Re-enable
+/plugin enable cc-expert@cc-expert
+
+# Uninstall completely
+/plugin uninstall cc-expert@cc-expert
+
+# Update to latest version
+/plugin marketplace update cc-expert
 ```
 
 ## Usage Examples
@@ -114,7 +169,8 @@ The skills use the `WebFetch` tool to retrieve:
 ```
 cc-expert/
 ├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest
+│   ├── plugin.json          # Plugin manifest
+│   └── marketplace.json     # Marketplace catalog (for GitHub installation)
 ├── commands/
 │   └── research.md          # /cc-expert:research command
 ├── skills/
