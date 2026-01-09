@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "cc-expert",
-      "source": ".",
+      "source": "./plugin",
       "description": "Claude Code expert plugin that thoroughly researches official documentation and changelog before providing comprehensive advice. Includes two skills: cc-explorer for brainstorming and project planning, cc-solver for targeted problem-solving.",
       "version": "1.0.0",
       "author": {

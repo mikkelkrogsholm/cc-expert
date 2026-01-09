@@ -102,8 +102,8 @@ For testing or contributing:
 # Clone the repository
 git clone git@github.com:mikkelkrogsholm/cc-expert.git
 
-# Test locally with --plugin-dir
-claude --plugin-dir ./cc-expert
+# Test locally with --plugin-dir (point to the plugin subdirectory)
+claude --plugin-dir ./cc-expert/plugin
 ```
 
 ### Manage the Plugin
@@ -169,15 +169,17 @@ The skills use the `WebFetch` tool to retrieve:
 ```
 cc-expert/
 ├── .claude-plugin/
-│   ├── plugin.json          # Plugin manifest
 │   └── marketplace.json     # Marketplace catalog (for GitHub installation)
-├── commands/
-│   └── research.md          # /cc-expert:research command
-├── skills/
-│   ├── cc-explorer/
-│   │   └── SKILL.md         # Exploratory research skill
-│   └── cc-solver/
-│       └── SKILL.md         # Targeted problem-solving skill
+├── plugin/                   # The actual plugin
+│   ├── .claude-plugin/
+│   │   └── plugin.json      # Plugin manifest
+│   ├── commands/
+│   │   └── research.md      # /cc-expert:research command
+│   └── skills/
+│       ├── cc-explorer/
+│       │   └── SKILL.md     # Exploratory research skill
+│       └── cc-solver/
+│           └── SKILL.md     # Targeted problem-solving skill
 └── README.md
 ```
 
