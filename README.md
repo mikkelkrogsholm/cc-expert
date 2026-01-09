@@ -53,21 +53,18 @@ For when you want to explicitly trigger comprehensive research on a topic.
 
 ## Installation
 
-### Option 1: Install from GitHub (when published)
+### Option 1: Install from GitHub
 
 ```bash
-# Add the plugin marketplace
-claude plugin marketplace add https://github.com/YOUR_USERNAME/cc-expert
-
-# Install the plugin
-claude plugin install cc-expert
+# Test with the plugin directly from the repo
+claude --plugin-dir /path/to/cc-expert
 ```
 
-### Option 2: Local Development
+### Option 2: Clone and Use
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/cc-expert.git
+git clone git@github.com:mikkelkrogsholm/cc-expert.git
 
 # Test locally
 claude --plugin-dir ./cc-expert
