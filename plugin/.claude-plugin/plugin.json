@@ -1,7 +1,7 @@
 {
   "name": "cc-expert",
-  "version": "1.0.0",
-  "description": "Claude Code expert plugin that thoroughly researches official documentation and changelog before providing comprehensive advice. Includes two skills: cc-explorer for brainstorming and project planning, cc-solver for targeted problem-solving.",
+  "version": "2.0.0",
+  "description": "Claude Code expert plugin that thoroughly researches official documentation and changelog before providing comprehensive advice. Includes two agents: cc-explorer for brainstorming and project planning, cc-solver for targeted problem-solving.",
   "author": {
     "name": "Mikkel Freltoft Krogsholm"
   },
@@ -12,6 +12,8 @@
     "documentation",
     "research",
     "expert",
-    "helper"
+    "helper",
+    "agents",
+    "subagents"
   ]
 }

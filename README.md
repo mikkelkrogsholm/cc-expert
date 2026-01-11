@@ -12,10 +12,10 @@ Claude Code is evolving rapidly with new features, capabilities, and best practi
 
 ## Features
 
-### Two Intelligent Skills
+### Two Specialized Agents
 
 #### 1. cc-explorer (Exploratory)
-For brainstorming and project planning. Auto-triggers when you ask:
+For brainstorming and project planning. Invoke with `/cc-expert:research` or let Claude auto-trigger when you ask:
 - "What can Claude Code do for..."
 - "How should I set up..."
 - "What are my options for..."
@@ -28,7 +28,7 @@ For brainstorming and project planning. Auto-triggers when you ask:
 4. Synthesizes comprehensive, well-researched advice
 
 #### 2. cc-solver (Targeted)
-For solving specific problems. Auto-triggers when you ask:
+For solving specific problems. Invoke with `/cc-expert:solve` or let Claude auto-trigger when you ask:
 - "How do I configure..."
 - "Why isn't my hook working..."
 - "I'm trying to set up MCP..."
@@ -39,16 +39,26 @@ For solving specific problems. Auto-triggers when you ask:
 2. Fetches only the 2-4 most relevant docs
 3. Provides focused, copy-paste ready solutions
 
-### Explicit Command
+### Slash Commands
 
 #### `/cc-expert:research <topic>`
 
-For when you want to explicitly trigger comprehensive research on a topic.
+For comprehensive exploration of a topic:
 
 ```
 /cc-expert:research hooks
 /cc-expert:research MCP servers
 /cc-expert:research plugin development
+```
+
+#### `/cc-expert:solve <problem>`
+
+For targeted problem-solving:
+
+```
+/cc-expert:solve my hook isn't blocking bash commands
+/cc-expert:solve MCP server authentication
+/cc-expert:solve skill not auto-triggering
 ```
 
 ## Installation
@@ -127,39 +137,40 @@ claude --plugin-dir ./cc-expert/plugin
 
 ## Usage Examples
 
-### Exploratory Mode
+### Using the Research Command
 ```
-You: I want to build a plugin for my team that enforces coding standards.
-     What features should I use?
+You: /cc-expert:research plugin development
 
-Claude: [Activates cc-explorer skill]
-        [Fetches plugins.md, skills.md, hooks.md, slash-commands.md, etc.]
-        [Provides comprehensive overview of all options]
-```
-
-### Problem-Solving Mode
-```
-You: My PreToolUse hook isn't blocking the Bash command like I expected.
-
-Claude: [Activates cc-solver skill]
-        [Checks changelog for recent hook changes]
-        [Fetches hooks.md, hooks-guide.md]
-        [Provides specific fix for the issue]
+Claude: [Spawns cc-explorer agent]
+        [Agent fetches plugins.md, skills.md, hooks.md, slash-commands.md, etc.]
+        [Agent returns comprehensive overview of all options]
 ```
 
-### Explicit Research
+### Using the Solve Command
 ```
-You: /cc-expert:research MCP server authentication
+You: /cc-expert:solve my PreToolUse hook isn't blocking Bash
 
-Claude: [Fetches llms.txt, changelog, mcp.md, iam.md, settings.md]
-        [Provides complete guide to MCP authentication]
+Claude: [Spawns cc-solver agent]
+        [Agent checks changelog for recent hook changes]
+        [Agent fetches hooks.md, hooks-guide.md]
+        [Agent returns specific fix for the issue]
+```
+
+### Auto-Triggering (if agent descriptions match your question)
+```
+You: What's the best way to structure a plugin for my team?
+
+Claude: [May auto-trigger cc-explorer based on description match]
 ```
 
 ## How It Works
 
-Both skills use `context: fork` which means they run in an isolated sub-agent context. This prevents the research from bloating your main conversation while still providing you with comprehensive results.
+Both agents run as **subagents** via the Task tool, which means they execute in an isolated context. This:
+- Keeps your main conversation clean
+- Allows the agent to make multiple WebFetch calls without cluttering your chat
+- Returns a synthesized result back to you
 
-The skills use the `WebFetch` tool to retrieve:
+The agents use the `WebFetch` tool to retrieve:
 - `https://code.claude.com/docs/llms.txt` - Documentation index
 - `https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md` - Latest changes
 - Individual documentation pages as needed
@@ -174,19 +185,31 @@ cc-expert/
 │   ├── .claude-plugin/
 │   │   └── plugin.json      # Plugin manifest
 │   ├── commands/
-│   │   └── research.md      # /cc-expert:research command
-│   └── skills/
+│   │   ├── research.md      # /cc-expert:research command
+│   │   └── solve.md         # /cc-expert:solve command
+│   ├── agents/
+│   │   ├── cc-explorer/
+│   │   │   └── AGENT.md     # Exploratory research agent
+│   │   └── cc-solver/
+│   │       └── AGENT.md     # Targeted problem-solving agent
+│   └── skills/              # Legacy skills (kept for auto-discovery)
 │       ├── cc-explorer/
-│       │   └── SKILL.md     # Exploratory research skill
+│       │   └── SKILL.md
 │       └── cc-solver/
-│           └── SKILL.md     # Targeted problem-solving skill
+│           └── SKILL.md
 └── README.md
 ```
+
+## Version 2.0 Changes
+
+- **Migrated from skills to agents**: Skills with `context: fork` had a known bug. Agents via the Task tool work reliably.
+- **Added `/cc-expert:solve` command**: Explicit command for targeted problem-solving.
+- **Improved reliability**: Subagents spawn correctly and return results.
 
 ## Contributing
 
 Contributions welcome! Some ideas:
-- Add more specialized skills for specific domains
+- Add more specialized agents for specific domains
 - Improve the research heuristics
 - Add caching for frequently accessed docs
 
